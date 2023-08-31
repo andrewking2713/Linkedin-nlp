@@ -39,6 +39,7 @@ def job_scrape(job_dict: dict, job_ids_list: list) -> tuple[dict, list]:
     Accepts a dictionary, empty or already semi-filled, and a list of job IDs obtained from job_id_scrape. Returns a dictionary with the information from the webpage using the job ID.
     This function is intended to by used in a loop where i is == len(job_id_list). Once a webpage has succesfully been scraped the job_id_list will .pop() the leading entry.
     """
+    time.sleep(random.choice(range(2,4,1))) # Sleep to avoid IP block
     if job_dict == {}:
         job_dict = {'job_title' : [], 'company' : [], 'job_info' : [], 'when_posted' : [], 'num_applicants' : [],
       'seniority' : [], 'employment_type' : [], 'job_function' : [], 'industry' : [], 'job_url' : []}
@@ -106,7 +107,6 @@ def job_scrape(job_dict: dict, job_ids_list: list) -> tuple[dict, list]:
                 job_dict['industry'].append(None)
         job_dict['job_url'].append(f'https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_ids_list[0]}/')
         job_ids_list.pop(0)
-        time.sleep(random.choice(range(2,4,1))) # Sleep to avoid IP block
     return job_dict, job_ids_list
 
 
